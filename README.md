@@ -1,45 +1,30 @@
-# Study Plan Strategy Pattern
+# Assignment 5 - Strategy Pattern
 
-This Java console application creates study plans using the Strategy design pattern. The user enters a subject, topics, available hours, and a number of weeks, then chooses a planning approach. The strategy can be changed repeatedly during the same run.
+For this assignment, I made a study planner in Java. The program asks for a subject, topics, hours per week, and the number of weeks. Then I can choose how I want to study. I can switch to another plan during the same run.
+
+I chose this topic because preparing for an exam, learning a skill, and working on a project need different study plans.
 
 ## Strategies
 
-- **Exam preparation** cycles through the topics in priority order, divides each week between review and timed questions, and ends with a mock exam.
-- **Skill building** divides every week between learning, practice, and reflection.
-- **Project based** starts with a prototype, builds topic-based features, and ends with integration, testing, and a presentation.
+- **Exam preparation:** Reviews topics and uses timed questions. The last week includes a mock exam.
+- **Skill building:** Splits the time between learning, practice, and reflection.
+- **Project based:** Starts with a prototype, builds features in the middle weeks, and finishes with testing and a presentation.
 
-## Pattern roles
+## How I used Strategy
 
-| Role | Class | Responsibility |
-| --- | --- | --- |
-| Strategy interface | `StudyPlanStrategy` | Defines the common `createPlan` method. |
-| Concrete strategies | `ExamPreparationStrategy`, `SkillBuildingStrategy`, `ProjectBasedStrategy` | Create different weekly plans. |
-| Context | `StudyPlanner` | Stores a strategy, delegates plan creation, and allows runtime switching. |
-| Client | `Main` | Collects input, selects a strategy, and prints the plan. |
+`StudyPlanStrategy` is the common interface. The three strategy classes implement its `createPlan` method in different ways. `StudyPlanner` keeps a reference to the selected strategy and calls that method. `Main` takes input and lets me change the strategy while the program is running.
 
-The context contains no conditional logic about strategy types.
+The planner does not check which concrete strategy it has. It only works with the interface.
 
-Example input:
+## Example
 
-```text
-Subject: Java
-Topics, separated by commas: Collections, Streams, Testing
-Hours per week (3-40): 8
-Number of weeks (3-12): 4
-Selection: 1
-Selection: 2
-Selection: 3
-Selection: 0
-```
+I can enter `Java` as the subject, `Collections, Streams, Testing` as the topics, `8` hours per week, and `4` weeks. Then I can enter `1`, `2`, or `3` to see each plan. Entering `0` exits the program.
 
-Selecting 1, 2, and 3 in the same session demonstrates runtime strategy switching.
+## Clean Code principles I used
 
-## Clean Code principles
-
-1. **Single Responsibility Principle:** Each concrete strategy implements one planning algorithm. `StudyPlanner` delegates, and `Main` handles input and output.
-2. **Open/Closed Principle:** A new algorithm can implement `StudyPlanStrategy` and be supplied to `StudyPlanner` without changing the context or existing strategies.
-3. **Dependency Inversion Principle:** `StudyPlanner` depends on `StudyPlanStrategy`, not on any concrete strategy class.
-4. **Meaningful names:** Names such as `ExamPreparationStrategy`, `StudyPlanner`, and `createPlan` explain the purpose of each component.
-5. **Polymorphism over strategy conditionals:** The context calls the same interface method for every algorithm. It does not check which concrete strategy it received.
-6. **Input validation:** `Main` checks the required text and numeric ranges before creating a plan.
-
+1. **Single responsibility:** Each strategy creates only one type of plan. `StudyPlanner` delegates the work, while `Main` handles the console input and output.
+2. **Meaningful names:** Names like `ExamPreparationStrategy`, `StudyPlanner`, and `createPlan` show what each part does.
+3. **Open/closed principle:** I can add another strategy by implementing `StudyPlanStrategy`. I do not need to change `StudyPlanner` or the existing strategies.
+4. **Dependency on an interface:** `StudyPlanner` uses `StudyPlanStrategy` instead of depending on one concrete strategy class.
+5. **Polymorphism instead of conditions:** The planner calls the same `createPlan` method for every strategy. There is no `if` or `switch` for strategy types inside the planner.
+6. **Input validation:** `Main` checks that the text is not empty and that the numbers are within the allowed ranges.
