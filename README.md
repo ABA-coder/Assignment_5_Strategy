@@ -2,7 +2,6 @@
 
 For this assignment, I made a study planner in Java. The program asks for a subject, topics, hours per week, and the number of weeks. Then I can choose how I want to study. I can switch to another plan during the same run.
 
-I chose this topic because preparing for an exam, learning a skill, and working on a project need different study plans.
 
 ## Strategies
 
