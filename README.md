@@ -19,16 +19,6 @@ This Java console application creates study plans using the Strategy design patt
 
 The context contains no conditional logic about strategy types.
 
-## Build and run
-
-Java 8 or newer is required. In PowerShell, run these commands from the project directory:
-
-```powershell
-$sources = Get-ChildItem -Recurse src -Filter *.java | ForEach-Object FullName
-javac -d build $sources
-java -cp build com.company.Main
-```
-
 Example input:
 
 ```text
@@ -53,4 +43,3 @@ Selecting 1, 2, and 3 in the same session demonstrates runtime strategy switchin
 5. **Polymorphism over strategy conditionals:** The context calls the same interface method for every algorithm. It does not check which concrete strategy it received.
 6. **Input validation:** `Main` checks the required text and numeric ranges before creating a plan.
 
-To add another planning algorithm, create a class that implements `StudyPlanStrategy` and register it in the client's strategy menu. The context and the existing strategies do not need changes.
